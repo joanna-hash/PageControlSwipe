@@ -30,6 +30,9 @@ class ViewController: UIViewController {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizer.Direction.right
         self.view.addGestureRecognizer(swipeRight)
+        
+        let pinch = UIPinchGestureRecognizer(target: self, action: #selector(ViewController.doPinch(_:)))
+        self.view.addGestureRecognizer(pinch)
     }
 
     @IBAction func pageChange(_ sender: UIPageControl) {
@@ -54,6 +57,12 @@ class ViewController: UIViewController {
             
             imgView.image = UIImage(named: images[pageControl.currentPage])
         }
+    }
+    
+    @objc func doPinch(_ pinch: UIPinchGestureRecognizer) {
+
+        imgView.transform = imgView.transform.scaledBy(x: pinch.scale, y: pinch.scale)
+        pinch.scale = 1
     }
 
     
